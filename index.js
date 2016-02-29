@@ -5,13 +5,15 @@
 'use strict';
 
 var GulpGjslint = require(__dirname + '/lib/GulpGjslint');
-var task;
+var GulpFixJsStyle = require(__dirname + '/lib/GulpFixJsstyle');
+var lint;
+var fix;
 
 /**
  * @param {Object=} options
  * @returns {null|*}
  */
-task = function(options)
+lint = function(options)
 {
   var gulpGjslint = new GulpGjslint(options);
 
@@ -19,9 +21,25 @@ task = function(options)
 };
 
 /**
+ * @param {Object=} options
+ * @returns {null|*}
+ */
+fix = function(options)
+{
+  var gulpFixjsStyle = new GulpFixJsStyle(options);
+
+  return gulpFixjsStyle.run();
+};
+
+/**
  * @type {Function}
  */
-module.exports = task;
+module.exports.gjslint = lint;
+
+/**
+ * @type {Function}
+ */
+module.exports.fixjsstyle = fix;
 
 /**
  * @type {*}

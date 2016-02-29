@@ -37,12 +37,33 @@ gulp.task('jscs', function() {
 });
 
 /**
+ * Task: fixjsstyle
+ *
+ * Fixes simple js issues using...itself. #lintception
+ */
+gulp.task('fixjsstyle', function() {
+  var linter = require('./index'),
+      fixjsstyle = linter.fixjsstyle;
+  var options = {
+    flags: [
+      '--flagfile .fixjsstylerc'
+    ]
+  };
+
+  return gulp.src([srcFiles, testFiles])
+    .pipe(fixjsstyle(options))
+    .pipe(linter.reporter('console'))
+    .pipe(linter.reporter('fail'));
+});
+
+/**
  * Task: gjslint
  *
  * Lints library and spec files using...itself. #lintception
  */
 gulp.task('gjslint', function() {
-  var gjslint = require('./index');
+  var linter = require('./index'),
+      gjslint = linter.gjslint;
   var options = {
     flags: [
       '--flagfile .gjslintrc'
@@ -51,8 +72,8 @@ gulp.task('gjslint', function() {
 
   return gulp.src([srcFiles, testFiles])
     .pipe(gjslint(options))
-    .pipe(gjslint.reporter('console'))
-    .pipe(gjslint.reporter('fail'));
+    .pipe(linter.reporter('console'))
+    .pipe(linter.reporter('fail'));
 });
 
 /**
@@ -60,7 +81,7 @@ gulp.task('gjslint', function() {
  *
  * Runs all linting tasks.
  */
-gulp.task('lint', ['jscs', 'gjslint']);
+gulp.task('lint', ['jscs', 'fixjsstyle', 'gjslint']);
 
 /**
  * Task: watch
