@@ -68,7 +68,8 @@ describe('GJslint Options parsing', function() {
     };
 
     gulpGjslint = new GulpGjslint(options);
-    gulpGjslint.processFile(mockFile);
+    gulpGjslint.compileFiles(mockFile, null, function() {});
+    gulpGjslint.processFiles(function() {});
 
     mockGjslint.should.have.been.calledWith(expectedOptions);
   });

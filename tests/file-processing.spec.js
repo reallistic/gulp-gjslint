@@ -25,6 +25,7 @@ describe('Parsing a linted file', function() {
       info: {
         fails: [
           {
+            file: './some-fake-file.js',
             errors:
               [
                 {
