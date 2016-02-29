@@ -34,6 +34,11 @@ fix = function(options)
 /**
  * @type {Function}
  */
+module.exports = lint;
+
+/**
+ * @type {Function}
+ */
 module.exports.gjslint = lint;
 
 /**
